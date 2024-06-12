@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+</head>
+ 
+<body>
+  <div id="question-container"></div>
+  <input type="text" id="answer" placeholder="Enter your answer">
+  <button id="submit-answer">Submit</button>
+  <div id="quiz-result"></div>
+
+  <script>
+    const questions = [
+      { question: "What is the capital of France?", answer: "Paris" },
+      { question: "What is 2 + 2?", answer: "4" },
+      { question: "What color is the sky?", answer: "blue" }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionContainer = document.getElementById('question-container');
+    const answerInput = document.getElementById('answer');
+    const submitButton = document.getElementById('submit-answer');
+    const resultContainer = document.getElementById('quiz-result');
+
+    function displayQuestion() {
+      if (currentQuestionIndex < questions.length) {
+        questionContainer.innerText = questions[currentQuestionIndex].question;
+        answerInput.value = '';
+      } else {
+        questionContainer.innerText = '';
+        answerInput.style.display = 'none';
+        submitButton.style.display = 'none';
+        resultContainer.innerText = `You scored ${score} out of ${questions.length}`;
+      }
+    }
+
+    submitButton.addEventListener('click', runQuiz);
+    
+    
+   function runQuiz() {
+      const userAnswer = answerInput.value.trim();
+      if (userAnswer.toLowerCase() === questions[currentQuestionIndex].answer.toLowerCase()) {
+        score++;
+      }
+      currentQuestionIndex++;
+      displayQuestion();
+    };
+
+    // Initialize the first question
+    displayQuestion();
+  </script>
+</body>
+
+</html>
